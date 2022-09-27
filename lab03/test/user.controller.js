@@ -35,7 +35,8 @@ describe('User', () => {
         done()
       })
     })
-
+     // TODO create this test
+      // Warning: the user already exists
     it('avoid creating an existing user', (done)=> {
       const user = {
         username: 'sergkudinov',
@@ -43,12 +44,16 @@ describe('User', () => {
         lastname: 'Kudinov'
       }
       userController.create(user, (err, result) => {
-        expect(err).to.not.be.equal(null)
-        expect(result).to.be.equal(null)
-        done();
+        expect(err).to.be.equal(null)
+        expect(result).to.be.equal('OK')
+        userController.create(user,(err, result) => {
+          expect(err).to.not.be.equal(null);
+          expect(result).to.be.equal(null)
+          done()
+        })
       })
-      // TODO create this test
-      // Warning: the user already exists
+      
+   
 
     })
   })
@@ -57,35 +62,36 @@ describe('User', () => {
   describe('Get', ()=> {
     
     it('get a user by username', (done) => {
-      // 1. First, create a user to make this unit test independent from the others
+     
       const user = {
-        username : 'dog123  ',
+        username : 'dog123',
         firstname: 'Odoki',
         lastname:"Arajan"
       }
+       // 1. First, create a user to make this unit test independent from the others
       userController.create(user, (err, result) => {
         expect(err).to.be.equal(null)
         expect(result).to.be.equal('OK')
-        done()
+          // 2. Then, check if the result of the get method is correct
+        userController.get(user.username, (err, result) => {
+          expect(err).to.be.equal(null)
+          expect(result).to.be.deep.equal(
+            { firstname: user.firstname, lastname: user.lastname }
+          )
+          done();
+        })
       })
-      userController.get(username, (err, result) => {
-        expect(err).to.be.equal(null)
-        expect(result).to.be.equal(result)
-        done();
-      })
-      // 2. Then, check if the result of the get method is correct
-      
     })
   
     it('cannot get a user when it does not exist', (done) => {
       // Chech with any invalid user
       const username = 'blackcat';
       userController.get(username, (err, result) => {
-        expect(err).to.not.be.equal(null)
+        expect(err).to.not.be.equal(null);
         expect(result).to.be.equal(null)
-        done();
+        done()
       })
-      done()
+   
     })
   
   })

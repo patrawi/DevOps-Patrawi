@@ -15,7 +15,7 @@ module.exports = {
     // TODO check if user already exists
     db.exists(user.username, (err, res) => {
       if(err) {
-        return callback(err);
+        return callback(err,null);
       }
       if(res === 1) {
         return callback(new Error("already existed"),null)
@@ -28,13 +28,14 @@ module.exports = {
 
   },
   get: (username, callback) => {
-    if(!username) {
-      return callback(new Error("Please enter username correctly"),null);
-    }
-    db.hgetall(username, (err, res) => {
+    // TODO create this method
+    db.exists(username, (err, res) => {
       if(err) return callback(err,null)
-      console.log(res);
-      callback(null,res)
+      if(res === 0) return callback(new Error("this user doesn't exist"),null);
+      db.hgetall(username, (err, res) => {
+        if(err) return callback(err, null);
+        callback(null,res);
+      })
     })
   }
 }
