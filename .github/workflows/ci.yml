@@ -7,7 +7,9 @@ on:
 defaults:
   run:
     working-directory: lab04
+
 jobs:
+  
   # Label of the container job
   test:
     # Containers must run in Linux based operating systems
@@ -21,6 +23,7 @@ jobs:
       redis:
         # Docker Hub image
         image: redis
+        
         # Set health checks to wait until redis has started
         options: >-
           --health-cmd "redis-cli ping"
@@ -57,7 +60,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: " userapi-deploy" #Must be unique in Heroku
+          heroku_app_name: " userapimk2-deploy" #Must be unique in Heroku
           heroku_email: "peaphee123456789@gmail.com"
           appdir: lab04
       
