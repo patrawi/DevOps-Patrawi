@@ -23,6 +23,7 @@ app.use('/user', userRouter)
 
 const server = app.listen(port, (err) => {
   if (err) throw err
+  console.log('hello from redis server');
   console.log("Server listening the port " + port)
 })
 
