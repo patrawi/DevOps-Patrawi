@@ -1,5 +1,5 @@
 {
-  "name": "ece-userapi",
+  "name": "ece-userapi-pirawat",
   "version": "1.0.0",
   "description": "User API web application",
   "main": "src/index.js",
