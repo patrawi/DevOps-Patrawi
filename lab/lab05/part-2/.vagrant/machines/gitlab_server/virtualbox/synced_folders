@@ -1,0 +1,1 @@
+{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"C:/Users/piraw/Documents/ece2022/DevOps-Patrawi/lab/lab05/part-2","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}
