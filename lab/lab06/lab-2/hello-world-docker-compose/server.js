@@ -5,13 +5,20 @@ const client = require('./dbClient');
 
 const PORT = 8080;
 
-function get_hit_count(callback) {
-  client.incr('hits', (err) => {
-    client.get('hits', (err, res) => {
-      console.log(res)
-      callback(res)
-    })
-  });
+async function get_hit_count(callback) {
+  client.connect().then(async (res) => {
+    client.incr('hits', (err) => {
+
+      client.get('hits', (err, res) => {
+  
+        callback(res)
+
+      })
+    });
+  }).catch((err) => {
+    console.log('err happend' + err);
+  })
+
 }
 
 const app = express();
@@ -19,6 +26,7 @@ app.get('/', (req, res) => {
   get_hit_count((count) => {
     res.send('Hello World from Docker! I have been seen ' + count + ' times');
   })
+  client.disconnect
 });
 
 app.listen(PORT);
