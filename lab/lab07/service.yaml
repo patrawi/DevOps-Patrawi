@@ -5,6 +5,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: proxy # TO COMPLETE
+    app: kubernetes-bootcamp # TO COMPLETE
   ports:
     - port: 8080 # TO COMPLETE
+      targetPort: 8080
