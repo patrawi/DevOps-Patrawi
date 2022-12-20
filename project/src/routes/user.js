@@ -1,5 +1,5 @@
 const express = require('express');
-const userController = require('./user.controller');
+const userController = require('../controllers/user');
 
 const userRouter = express.Router();
 
@@ -20,7 +20,7 @@ userRouter.post('/', (req, resp) => {
     resp.status(201).json(respObj);
   });
 });
-userRouter.get('/:username', (req, resp) => {
+userRouter.get('/:username', (req, resp, next) => {
   // Express URL params - https://expressjs.com/en/guide/routing.html
   // TODO Create get method API
   const username = req.params.username;
@@ -35,7 +35,7 @@ userRouter.get('/:username', (req, resp) => {
     }
     resp.status(201).json({
       status: 'success',
-      msg: `${res.firstname} ${res.lastname}`,
+      msg: `${res[0]} ${res[1]}`,
     });
   });
 });
