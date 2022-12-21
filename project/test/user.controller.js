@@ -12,7 +12,7 @@ describe('User', () => {
     it('create a new user', (done) => {
       const user = {
         username: 'sergkudinov',
-        firstname: 'Sergei',
+        firstname: 'Sergedi',
         lastname: 'Kudinov',
       };
       userController.create(user, (err, result) => {
