@@ -1,10 +1,13 @@
 const db = require('../dbClient');
 
 module.exports = {
-  create: async (user, callback) => {
+  create: async (user) => {
     // Check parameters
-    if (!user.username)
-      return callback(new Error('Wrong user parameters in the input'), null);
+
+    if (!user.username) {
+      return new Error('Wrong user parameters in the input');
+    }
+
     // Create User schema
     const userObj = {
       firstname: user.firstname,
@@ -12,36 +15,22 @@ module.exports = {
     };
     // Save to DB
     // TODO check if user already exists
-    db.exists(user.username, (err, res) => {
-      if (err) {
-        return callback(err, null);
-      }
-      if (res === 1) {
-        return callback(new Error('already existed'), null);
-      }
-      db.hset(
-        user.username,
-        'firstname',
-        userObj.firstname,
-        'lastname',
-        userObj.lastname,
-        (err, res) => {
-          if (err) return callback(err, null);
-          callback(null, res);
-        }
-      );
-    });
+    const existCheck = await db.exists(user.username);
+
+    if (existCheck !== 0) {
+      return new Error('Already Existed');
+    }
+
+    const result = await db.hSet(user.username, userObj);
+    if (result !== 2) return new Error('Internal Server Error');
+    return 'Created';
   },
-  get: (username, callback) => {
+  get: async (username) => {
     // TODO create this method
-    db.exists(username, (err, res) => {
-      if (err) return callback(err, null);
-      if (res === 0)
-        return callback(new Error("this user doesn't exist"), null);
-      db.hmget(username, ['firstname', 'lastname'], (err, res) => {
-        if (err) return callback(err, null);
-        callback(null, res);
-      });
-    });
+
+    const existCheck = await db.exists(username);
+    if (existCheck == 0) return new Error('User Not Found');
+    const result = await db.hGetAll(username);
+    return `${result.firstname} ${result.lastname}`;
   },
 };
