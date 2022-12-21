@@ -4,7 +4,7 @@ module.exports = {
   create: async (user, callback) => {
     // Check parameters
     if (!user.username)
-      return callback(new Error('Wrong user parameters'), null);
+      return callback(new Error('Wrong user parameters in the input'), null);
     // Create User schema
     const userObj = {
       firstname: user.firstname,
