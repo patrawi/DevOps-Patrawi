@@ -1,7 +1,7 @@
-const app = require('../src/index');
+const app = require('../index');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const db = require('../src/api/dbClient');
+const db = require('../dbClient');
 
 chai.use(chaiHttp);
 

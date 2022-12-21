@@ -5,7 +5,7 @@ const homeRouter = require('./api/home');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const db = require('./api/dbClient');
+const db = require('./dbClient');
 db.on('error', (err) => {
   console.error(err);
 });

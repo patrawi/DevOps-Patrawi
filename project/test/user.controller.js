@@ -1,6 +1,6 @@
 const { expect } = require('chai');
-const userController = require('../src/api/controllers/user');
-const db = require('../src/api/dbClient');
+const userController = require('../api/controllers/user');
+const db = require('../dbClient');
 
 describe('User', () => {
   beforeEach(() => {
