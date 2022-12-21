@@ -3,7 +3,7 @@ let db;
 
 describe('Redis', () => {
   before(() => {
-    db = require('../src/dbClient');
+    db = require('../src/api/dbClient');
   });
 
   it('should connect to Redis', () => {
