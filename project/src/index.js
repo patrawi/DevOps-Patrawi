@@ -1,11 +1,11 @@
 const express = require('express');
-const userRouter = require('../routes/user');
+const userRouter = require('./api/user');
 const bodyParser = require('body-parser');
-
+const homeRouter = require('./api/home');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const db = require('../dbClient');
+const db = require('./dbClient');
 db.on('error', (err) => {
   console.error(err);
 });
@@ -16,9 +16,7 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-
-app.get('/', (req, res) => res.send('Hello World!'));
-
+app.use('/', homeRouter);
 app.use('/user', userRouter);
 
 const server = app.listen(port, (err) => {
