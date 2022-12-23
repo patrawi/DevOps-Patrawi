@@ -1,0 +1,32 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  if Vagrant.has_plugin?("vagrant-vbguest")
+    config.vm.provider :virtualbox do |vb|
+      config.vbguest.auto_update = false
+    end
+  end
+  config.vm.box     = "precise64"
+  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+
+  config.vm.network :private_network, ip: "192.168.50.3"
+
+  config.vm.synced_folder "/local/path/to/project", "/srv/project"
+  
+
+  config.vm.provider :virtualbox do |vb|
+    vb.name = "project.server.local"
+    vb.memory = 2048
+    vb.cpus = 1
+  end
+
+  config.vm.provision :ansible do |ansible|
+    ansible.playbook = "playbooks/main.yml"
+    # ansible.verbose = 'vvvv'
+  end
+end

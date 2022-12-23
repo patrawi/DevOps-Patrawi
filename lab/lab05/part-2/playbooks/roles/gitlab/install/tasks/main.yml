@@ -16,7 +16,7 @@
 - name: Enable HTTP+HTTPS access
   firewalld:
     # This is how we use a variable
-    service: "{{ item }}"
+    service: '{{ item }}'
     permanent: yes
     state: enabled
   # The module will be run for each item
@@ -39,7 +39,24 @@
     name: postfix
     state: started
     enabled: yes
-
+- name: Ensure bash, OpenSSl, and libssl are the latest versions
+  apt: name={{ item }} update_cache={{ update_apt_cache }} state=latest
+  with_items:
+    - bash
+    - openssl
+    - libssl-dev
+    - libssl-doc
+  tags: packages
+- name: Install base packages
+  apt: name={{ item }} update_cache={{ update_apt_cache }} force=yes state=latest
+  with_items:
+    - build-essential
+    - ntp
+    - htop
+    - git
+    - nodejs
+    - npm
+  tags: packages
 - name: Download GitLab install script
   get_url:
     url: https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.rpm.sh

@@ -17,8 +17,6 @@ userRouter.post('/', async (req, resp) => {
   });
 });
 userRouter.get('/:username', async (req, resp, next) => {
-  // Express URL params - https://expressjs.com/en/guide/routing.html
-  // TODO Create get method API
   const username = req.params.username;
   const result = await userController.get(username);
   if (result && result.message && result.stack) {

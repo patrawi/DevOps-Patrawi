@@ -16,8 +16,7 @@ spec:
         app: kubernetes-bootcamp
     spec:
       containers:
-      - name: kubernetes-bootcamp
-        image: gcr.io/google-samples/kubernetes-bootcamp:v1
-        ports:
-        - containerPort: 8080
-     
+        - name: kubernetes-bootcamp
+          image: gcr.io/google-samples/kubernetes-bootcamp:v1
+          ports:
+            - containerPort: 8080

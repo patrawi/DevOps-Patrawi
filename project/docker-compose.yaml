@@ -10,7 +10,6 @@ services:
       - redis-data:/data
       - redis-conf:/usr/local/etc/redis/redis.conf
   web:
-    # COMPLETE HERE
     build: .
     ports:
       - '5000:8080'
@@ -19,4 +18,4 @@ services:
       REDIS_PORT: 6379
 volumes:
   redis-data:
-  redis-conf: # ...
+  redis-conf: #

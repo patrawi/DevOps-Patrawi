@@ -1,0 +1,8 @@
+---
+- name: Install required package
+  yum:
+    name:
+      - curl
+      - openssh-server
+      - policycoureutils-python
+    state: latest
