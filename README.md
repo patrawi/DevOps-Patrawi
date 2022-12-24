@@ -1,21 +1,38 @@
 # DEVOPS FINAL PROJECT
 
-## 1. Create a Web Application
+In this project, a web application was created using NodeJS as the base. The application was modified to use asynchronous functions in order to prevent callback hell and a healthcheck was also added. The project was deployed using a CI/CD pipeline with GitHub Actions and Vercel.
 
-In this project, I use the project template from userapi as the base for my web application using [NodeJS](https://nodejs.org/en/). However, I change some parts of codes from callback function to asynchronous funtion in order to prevent the callback hell. I also create healthcheck as well.
+A virtual environment was configured and provisioned using Vagrant and ansible, and the application was run using the Infrastructure as Code (IaC) approach. A Docker image of the application was also created and pushed to a remote repository on Docker Hub.
+
+Container orchestration was implemented using Docker Compose and Kubernetes, and a service mesh was created using Istio. The project was tested and the results were documented.
+
+## Running the Application
+
+To run the application, follow these steps:
+
+1. Install the dependencies:
+
+```
+    yarn install || npm instal
+```
+
+2. Start the project:
+
+```
+    yarn start
+```
+
+3. Run tests:
+
+```
+    yarn test
+```
+
 ![Web Application](./image/web-application.png)
 
-**PS** : The reason why my folder structure is different due to how vercel look up the file for build. Vercel will look for api folder.
+## CI/CD Pipeline
 
-```
-yarn install || npm install ## For downloading dep
-yarn start ## for starting the project
-yarn test ## for testing project
-```
-
-## 2. Apply CI/CD pipeline
-
-Here is the link to Where I deploy this project [PROJECT](https://dev-ops-patrawi.vercel.app/)
+Here is the link to Where I deploy this project (PROJECT)[https://dev-ops-patrawi.vercel.app/]
 For this section, I use [github action](https://github.com/features/actions) as a tool for making CI/CD, but I deploy it on (Vercel application)[https://vercel.com/] instead of Heroku because other applications that are mine also deploy here too. In the **main.yml**, it creates redis as well as build my project, then it deploy everything on vercel using 3 different keys which are **VERCEL_TOKEN**, **VERCEL_ORG_ID**, **VERCEL_PROJECT_ID**.
 
 #### You don't have to do anything to run this because you only need to push it then the github action will do the rest.
