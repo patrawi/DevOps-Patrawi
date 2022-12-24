@@ -15,7 +15,7 @@ yarn test ## for testing project
 
 ## 2. Apply CI/CD pipeline
 
-Here is the link to Where I deploy this project (PROJECT)[https://dev-ops-patrawi.vercel.app/]
+Here is the link to Where I deploy this project [PROJECT](https://dev-ops-patrawi.vercel.app/)
 For this section, I use [github action](https://github.com/features/actions) as a tool for making CI/CD, but I deploy it on (Vercel application)[https://vercel.com/] instead of Heroku because other applications that are mine also deploy here too. In the **main.yml**, it creates redis as well as build my project, then it deploy everything on vercel using 3 different keys which are **VERCEL_TOKEN**, **VERCEL_ORG_ID**, **VERCEL_PROJECT_ID**.
 
 #### You don't have to do anything to run this because you only need to push it then the github action will do the rest.
