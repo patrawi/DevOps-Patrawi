@@ -1,42 +1,61 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: server
+  name: server-node-v1
   labels:
-    app: server
+    version: v1
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: server
+      version: v1
   template:
     metadata:
       labels:
         app: server
+        version: v1
     spec:
       containers:
         - name: server
           image: dogeceptionpp123/devops_project
           ports:
             - containerPort: 3000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-node-v2
+  labels:
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: server
+        version: v2
+    spec:
+      containers:
+        - name: meetup-server
+          image: dogeceptionpp123/dev_opv2
+          ports:
+            - containerPort: 3000
 ---
 apiVersion: v1
-kind: Pod
+kind: Service
 metadata:
-  name: redis2
+  name: server
   labels:
-    app: redis
+    app: server
 spec:
-  volumes:
-    - name: redis-data
-      persistentVolumeClaim:
-        claimName: redis-pvc
-
-  containers:
-    - name: redis
-      image: redis
-      ports:
-        - containerPort: 6379
-      volumeMounts:
-        - mountPath: '/data'
-          name: redis-data
+  ports:
+    - port: 3000
+      name: http
+  selector:
+    app: server

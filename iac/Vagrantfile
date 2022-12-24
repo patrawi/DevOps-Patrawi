@@ -1,32 +1,42 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# All Vagrant configuration is done below. The "2" in Vagrant.configure
-# configures the configuration version (we support older styles for
-# backwards compatibility). Please don't change it unless you know what
-# you're doing.
 Vagrant.configure("2") do |config|
+
+  # Do not pay attention to this parameter
   if Vagrant.has_plugin?("vagrant-vbguest")
     config.vm.provider :virtualbox do |vb|
       config.vbguest.auto_update = false
     end
   end
-  config.vm.box     = "precise64"
-  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
-  config.vm.network :private_network, ip: "192.168.50.3"
-
-  config.vm.synced_folder "/local/path/to/project", "/srv/project"
-  
-
-  config.vm.provider :virtualbox do |vb|
-    vb.name = "project.server.local"
-    vb.memory = 2048
-    vb.cpus = 1
+  # Define the gitlab_server VM
+  config.vm.define "redis_server" do |server|
+    # Specify the Vagrant box to use
+    server.vm.box = "centos/7"
+    # Specify the VM ip address
+    config.vm.network "forwarded_port", guest: 80, host: 8080
+    # Specify the VM specs when using the Virtualbox provisioner
+    server.vm.provider "virtualbox" do |vb|
+      vb.name =  "redis.server.local"
+      # VM RAM in MB
+      vb.memory = 3072
+      # VM CPUs
+      vb.cpus = 1
+    end
+    config.vm.provider "vmware_desktop" do |vmware|
+      vmware.vmx["memsize"] = "2048"
+      vmware.vmx["numvcpus"] = "1"
+    end
   end
+  config.vm.synced_folder "project", "/srv/website"
 
-  config.vm.provision :ansible do |ansible|
+  # Use Vagrant Ansible provisioner
+  config.vm.provision "ansible_local" do |ansible|
+    # The path to the playbooks entry point
     ansible.playbook = "playbooks/main.yml"
-    # ansible.verbose = 'vvvv'
+    # Only run the roles with these tags
+    ansible.tags = "install"
   end
+
 end

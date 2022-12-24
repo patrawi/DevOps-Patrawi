@@ -1,7 +1,12 @@
 ---
-- hosts: gitlab_server
+- hosts: redis_server
   become: true
-
+  vars:
+    node_apps_location: /user/local/opt/node
   roles:
+    - role: roles/redis
+      tags: install
+    - role: roles/healthcheck
+      tags: healthcheck
     - role: roles/nodejs-apps
       tags: install

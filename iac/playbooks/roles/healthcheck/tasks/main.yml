@@ -1,0 +1,10 @@
+- name: Check server health
+  uri:
+    url: http://127.0.0.1/-/health
+    return_content: yes
+  # Register the output of the module in a variable
+  register: nodejs_health
+
+- name: Print server health
+  debug:
+    msg: '{{ nodejs_health.content }}'

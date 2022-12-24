@@ -4,5 +4,65 @@
     name:
       - curl
       - openssh-server
-      - policycoureutils-python
+      - policycoreutils-python
     state: latest
+- name: Enable and start sshd
+  service:
+    name: sshd
+    state: started
+    enabled: yes
+- name: Enable HTTP+HTTPS access
+  firewalld:
+    # This is how we use a variable
+    service: '{{ item }}'
+    permanent: yes
+    state: enabled
+  # The module will be run for each item
+  with_items:
+    - http
+    - https
+
+- name: Reload firewalld
+  service:
+    name: firewalld
+    state: reloaded
+
+- name: 'Node: Install Node.js and npm.'
+  yum: pkg=npm state=present enablerepo=epel
+
+- name: 'Node: Install forever ( to run our Node.js app)'
+  npm: name=forever global=yes state=present
+
+- name: 'Node: Ensure Node.js app folder exists.'
+  file: path={{node_apps_location}} state=directory
+
+- name: 'Node: Copy example Node.js app to server'
+  copy: src=project dest={{node_apps_location}}
+
+- name: 'Node: Install app dependencies defined in package.json via npm.'
+  npm: path={{ node_apps_location }}/project
+
+- name: 'Node: Start example Node.js app.'
+  command: forever start {{ node_apps_location }}/project/index.js
+  # when: "forever_list.stdout.find('{{ node_apps_location}}/project/index.js') == -1"
+# - name: Install npm global packages
+#   npm: name={{item}} global=yes state=present
+
+# - stat: path=/vagrant/package.json
+#   register: vagpack
+
+# - name: Run npm install in /vagrant folder
+#   npm: path=/vagrant
+#   when: vagpack.stat.exists
+
+# - name: Start app in /vagrant/ folder
+#   command: npm start
+#   when: "forever_list.stdout.find('/vagrant/') == -1"
+
+# - name: Run npm install in folders listed in apps.enabled
+#   npm: path={{ item }}
+#   when: apps is defined and apps.enabled is defined
+
+# - name: Start all enabled applications
+#   command: forever start -c "npm start" {{ item }}
+#   when: "forever_list.stdout.find('{{ item }}') == -1"

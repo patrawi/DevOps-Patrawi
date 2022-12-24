@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: istiodemoservice
+spec:
+  hosts:
+    - '*'
+  gateways:
+    - istio-gateway
+  http:
+    - match:
+        - uri:
+            exact: /
+      route:
+        - destination:
+            host: server
+            subset: v1
+            port:
+              number: 3000
+          weight: 50
+        - destination:
+            host: server
+            subset: v2
+            port:
+              number: 3000
+          weight: 50
