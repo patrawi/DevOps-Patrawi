@@ -10,14 +10,16 @@ on:
     branches: ['main']
 
 jobs:
-  container-job:
-    strategy:
-      matrix:
-        version: [12, 14]
+  Continuos-Intregation:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: userapi
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     services:
       redis:
         image: redis
@@ -26,28 +28,22 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-        ports:
-          - 6379:6379
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-        env:
-          REDIS_HOST: redis
-          REDIS_PORT: 6379
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'yarn'
+          cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
-      - run: npm build
+      - run: npm run build --if-present
       - run: npm install
       - run: npm test
+        env:
+          REDIS_HOST: redis
+          REDIS_PORT: 6379
 
   deploy-Production:
-    needs: container-job
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
