@@ -45,7 +45,7 @@ jobs:
           REDIS_HOST: 127.0.0.1
           REDIS_PORT: 6379
 
-  deploy-Production:
+  deploy:
     needs: Continuous-Intregation
     runs-on: ubuntu-latest
     steps:
