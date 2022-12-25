@@ -2,7 +2,6 @@ name: project
 env:
   VERCEL_ORG_ID: ${{secrets.VERCEL_ORG_ID}}
   VERCEL_PROJECT_ID: ${{secrets.VERCEL_PROJECT_ID}}
-  REDIS_ENDPOINT_URL: ${{secrets.REDIS_ENDPOINT_URL}}
 
 on:
   push:
@@ -12,11 +11,13 @@ on:
 
 jobs:
   container-job:
+    strategy:
+      matrix:
+        version: [12, 14]
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: userapi
-    container: node:10.18-jessie
     services:
       redis:
         image: redis
