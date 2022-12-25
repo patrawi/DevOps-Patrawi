@@ -1,6 +1,6 @@
 const express = require('express');
 const homeRouter = express.Router();
 
-homeRouter.get('/', (req, res) => res.send('Hello World! From Thailand'));
+homeRouter.get('/', (req, res) => res.send('Bon jour! Hello World!'));
 
 module.exports = homeRouter;
