@@ -10,11 +10,13 @@ on:
     branches: ['main']
 
 jobs:
-  Continuous-Intregation:
+  defaults:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: userapi
+  Continuous-Intregation:
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -48,9 +50,7 @@ jobs:
   deploy:
     needs: Continuous-Intregation
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: userapi
+
     steps:
       - uses: actions/checkout@v2
       - name: Install Vercel CLI
