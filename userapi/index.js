@@ -7,7 +7,7 @@ const healthCheckRouter = require('./api/healthcheck');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const db = require('./dbClient');
+const db = require('./api/dbClient');
 db.on('error', (err) => {
   console.error(err);
 });

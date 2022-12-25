@@ -1,4 +1,4 @@
-const db = require('../../dbClient');
+const db = require('../dbClient');
 
 module.exports = {
   create: async (user) => {
