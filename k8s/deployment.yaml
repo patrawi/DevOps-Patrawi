@@ -18,4 +18,4 @@ spec:
         - name: server
           image: dogeceptionpp123/devops_project
           ports:
-            - containerPort: 3000
+            - containerPort: 8080

@@ -122,14 +122,23 @@ For making a service mesh using Istio, I create 2 different versions and push th
 ```
 
 #### Gateway:
+
 ![Gateway](./image/istio-gateway.png)
 
 #### Request Routing:
+
 ![RR](./image/istio-deployment.png)
 ![RR](./image/istio-deployment-RR-deployment.png)
 
 #### Shift Traffic
+
 ![ShiftTF](./image/shiftTraffic.png)
+
+## 8. Implement Monitoring to your containerized application
+
+By using the example from istio I can monitor the data in grafana in the k8s cluster like this
+![Grafana](./image/grafana.png)
+![Grafana](./image/grafana-2.png)
 
 # All Neccessary Links
 
@@ -138,4 +147,5 @@ For making a service mesh using Istio, I create 2 different versions and push th
 3. [My deployed website](https://dev-ops-patrawi.vercel.app/)
 
 ## Author
+
 ### Wareetanyarat Pirawat [my github](https://github.com/patrawi)
