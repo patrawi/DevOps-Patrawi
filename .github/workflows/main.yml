@@ -8,13 +8,10 @@ on:
     branches: ['main']
   pull_request:
     branches: ['main']
-
+defaults:
+  run:
+    working-directory: userAPI
 jobs:
-  defaults:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: userapi
   Continuous-Intregation:
     runs-on: ubuntu-latest
 
