@@ -23,7 +23,7 @@ app.use('/user', userRouter);
 app.use('/healthcheck', healthCheckRouter);
 const server = app.listen(port, (err) => {
   if (err) throw err;
-  console.log('Server  v2.0 listening the port ' + port);
+  console.log('Server listening the port ' + port);
 });
 
 module.exports = server;
