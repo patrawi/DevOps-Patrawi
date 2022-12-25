@@ -48,12 +48,15 @@ jobs:
   deploy:
     needs: Continuous-Intregation
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: userapi
     steps:
       - uses: actions/checkout@v2
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
-        run: vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
