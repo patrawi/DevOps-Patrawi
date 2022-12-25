@@ -113,7 +113,7 @@ For making a service mesh using Istio, I create 2 different versions and push th
 
 ```
 
-####Open another terminal::
+#### Open another terminal::
 
 ```
     istioctl install --set profile=demo -y
@@ -121,21 +121,21 @@ For making a service mesh using Istio, I create 2 different versions and push th
     kubectl apply -f [folder's name] or [file's name]
 ```
 
-####Gateway:
+#### Gateway:
 ![Gateway](./image/istio-gateway.png)
 
-####Request Routing:
+#### Request Routing:
 ![RR](./image/istio-deployment.png)
 ![RR](./image/istio-deployment-RR-deployment.png)
 
-####Shift Traffic
+#### Shift Traffic
 ![ShiftTF](./image/shiftTraffic.png)
 
-#All Neccessary Links
+# All Neccessary Links
 
 1. [1st image](https://hub.docker.com/r/dogeceptionpp123/devops_project)
 2. [2nd image](https://hub.docker.com/r/dogeceptionpp123/dev_opv2)
 3. [My deployed website](https://dev-ops-patrawi.vercel.app/)
 
-##Author
-###Wareetanyarat Pirawat [my github](https://github.com/patrawi)
+## Author
+### Wareetanyarat Pirawat [my github](https://github.com/patrawi)
