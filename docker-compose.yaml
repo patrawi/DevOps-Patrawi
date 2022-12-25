@@ -10,9 +10,9 @@ services:
       - redis-data:/data
       - redis-conf:/usr/local/etc/redis/redis.conf
   web:
-    build: .
+    build: ./userapi
     ports:
-      - '5000:8080'
+      - '5000:3000'
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
