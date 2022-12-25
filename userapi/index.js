@@ -23,7 +23,7 @@ app.use('/user', userRouter);
 app.use('/healthcheck', healthCheckRouter);
 const server = app.listen(port, (err) => {
   if (err) throw err;
-  console.log('Server listening the dai her dport ' + port);
+  console.log('Server listening the dai her dpdort ' + port);
 });
 
 module.exports = server;
