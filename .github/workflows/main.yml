@@ -10,7 +10,7 @@ on:
     branches: ['main']
 defaults:
   run:
-    working-directory: userAPI
+    working-directory: userapi
 jobs:
   Continuous-Intregation:
     runs-on: ubuntu-latest
