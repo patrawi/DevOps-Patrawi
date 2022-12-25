@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 describe('User REST API', () => {
   beforeEach(() => {
     // Clean DB before each test
-    db.flushDb();
+    db.flushdb();
   });
 
   after(() => {

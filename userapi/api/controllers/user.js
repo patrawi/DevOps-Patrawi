@@ -21,7 +21,7 @@ module.exports = {
       return new Error('Already Existed');
     }
 
-    const result = await db.hSet(user.username, userObj);
+    const result = await db.hset(user.username, userObj);
     if (result !== 2) return new Error('Internal Server Error');
     return 'Created';
   },
@@ -30,7 +30,7 @@ module.exports = {
 
     const existCheck = await db.exists(username);
     if (existCheck == 0) return new Error('User Not Found');
-    const result = await db.hGetAll(username);
+    const result = await db.hgetall(username);
     return `${result.firstname} ${result.lastname}`;
   },
 };

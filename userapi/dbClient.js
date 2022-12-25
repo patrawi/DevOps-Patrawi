@@ -1,29 +1,28 @@
-const redis = require('redis');
+const Redis = require('ioredis');
 const configure = require('./configure');
-
-const config = configure();
 const dotenv = require('dotenv');
 dotenv.config();
+const config = configure({
+  redis: {
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
+    url: process.env.REDIS_ENDPOINT_URL,
+    username: process.env.REDIS_USERNAME,
+    password: process.env.REDIS_PASSWORD,
+  },
+});
 
-const redisConfig = {
-  password: process.env.REDIS_PASSWORD || 'password',
-  uri:
-    `redis://${process.env.REDIS_ENDPOINT_URL}` ||
-    `redis://${config.redis.host}:${config.redis.port}`,
-};
-
-const db = redis.createClient({
-  url: redisConfig.uri,
-  username: 'default',
-  password: redisConfig.password,
+const db = new Redis({
+  host: config.redis.host,
+  port: config.redis.port,
+  password: config.redis.password,
   retry_strategy: () => {
     return new Error('Retry time exhausted');
   },
 });
-async function createConnection() {
-  await db.connect();
 
-  return db;
-}
-createConnection();
+process.on('SIGINT', function () {
+  db.quit();
+  process.exit(0);
+});
 module.exports = db;
