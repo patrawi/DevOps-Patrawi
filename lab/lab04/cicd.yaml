@@ -1,0 +1,34 @@
+name: CI/CD pipeline
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Redis
+        uses: azure/setup-redis@v1
+        with:
+          version: '6.0'
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: npm test
+      - name: Build app
+        run: npm run build
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to Heroku
+        uses: heroku/deploy-to-heroku@v1
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          app_name: my-app
+          run_migration: true
